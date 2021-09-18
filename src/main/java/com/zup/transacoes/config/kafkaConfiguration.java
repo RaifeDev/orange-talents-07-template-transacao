@@ -1,6 +1,7 @@
 package com.zup.transacoes.config;
 
-import com.zup.transacoes.modelos.EventoDeTransacao;
+import com.zup.transacoes.models.EventoDeTransacao;
+import com.zup.transacoes.models.TransacaoRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -40,17 +41,17 @@ public class kafkaConfiguration {
 
     //configurar nosso consumidor
     @Bean
-    public ConsumerFactory<String, EventoDeTransacao> transactionConsumerFactory(){
+    public ConsumerFactory<String, TransacaoRequest> transactionConsumerFactory(){
         StringDeserializer stringDeserializer = new StringDeserializer();
-        JsonDeserializer<EventoDeTransacao> jsonDeserializer = new JsonDeserializer<>(EventoDeTransacao.class, false);
+        JsonDeserializer<TransacaoRequest> jsonDeserializer = new JsonDeserializer<>(TransacaoRequest.class, false);
 
         return new DefaultKafkaConsumerFactory<>(consumerConfigurations(), stringDeserializer, jsonDeserializer);
     }
 
     //Precisamos configurar nosso listener
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, EventoDeTransacao> kafkaListenerContainerFactory(){
-        ConcurrentKafkaListenerContainerFactory<String, EventoDeTransacao> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, TransacaoRequest> kafkaListenerContainerFactory(){
+        ConcurrentKafkaListenerContainerFactory<String, TransacaoRequest> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(transactionConsumerFactory());
 
         return factory;

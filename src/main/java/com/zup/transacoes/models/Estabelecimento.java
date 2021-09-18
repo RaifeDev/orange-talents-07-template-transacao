@@ -1,4 +1,4 @@
-package com.zup.transacoes.modelos;
+package com.zup.transacoes.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

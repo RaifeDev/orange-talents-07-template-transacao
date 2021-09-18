@@ -1,4 +1,4 @@
-package com.zup.transacoes.modelos;
+package com.zup.transacoes.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -42,5 +42,15 @@ public class EventoDeTransacao {
         this.efetivadaEm = efetivadaEm;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public LocalDateTime getEfetivadaEm() {
+        return efetivadaEm;
+    }
 }
