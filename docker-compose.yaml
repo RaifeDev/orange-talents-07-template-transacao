@@ -33,3 +33,21 @@ services:
       LOG_LEVEL: INFO
       KAFKA_HOST: "kafka:29092"
       JAEGER_ENDPOINT: http://jaeger:14268/api/traces
+
+  keycloak:
+    image: jboss/keycloak:11.0.0
+    ports:
+      - 18443:8443
+      - 18080:8080
+      - 19990:9990
+    depends_on:
+      # Just a delay to wait for postgres! This is not recommended!
+      - kafka
+      - zookeeper
+      - transacoes
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
+      #KEYCLOAK_FRONTEND_URL: http://keycloak:8081/auth
+    restart: on-failure
